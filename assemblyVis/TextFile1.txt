@@ -1,0 +1,8 @@
+﻿
+1. implement prebuilt structure for code
+2. stack visualization on right side of screen
+3. multiply and divide correctly working X
+4. add esp and ebp registers
+5. create working functions 
+6. create a stack implemented to how it is in assembly 
+7. add push, pop and return statements 
