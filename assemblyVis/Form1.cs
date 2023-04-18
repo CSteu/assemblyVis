@@ -24,6 +24,7 @@ namespace assemblyVis
         string[] labels = new string[100];
         int[] labelLine = new int[100];
         List<int> stack = new List<int>();
+        int test;
 
         public nasmVis()
         {
