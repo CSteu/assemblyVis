@@ -65,6 +65,23 @@ namespace assemblyVis
             esp = 0;
             updateRegisters();
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            int lineCount = textBox1.Lines.Length;
+            StringBuilder sb = new StringBuilder();
+            for (int i = 1; i <= lineCount; i++)
+            {
+                sb.AppendLine(i.ToString());
+            }
+            label6.Text = sb.ToString();
+        }
+
+        private void nasmVis_Load(object sender, EventArgs e)
+        {
+
+        }
+
         public void updateRegisters()
         {
             if (registersType == 1) {
@@ -448,6 +465,58 @@ namespace assemblyVis
                     }
                     textBox2.Text += "Moved " + amount + " into " + reg1 + Environment.NewLine;
                 }
+            }
+            #endregion
+            #region inc and dec
+            else if (start == "inc ")
+            {
+                switch (command)
+                {
+                    case "eax":
+                        eax++;
+                        break;
+                    case "ebx":
+                        ebx++; 
+                        break;
+                    case "ecx":
+                        ecx++;
+                        break;
+                    case "edx":
+                        edx++;
+                        break;
+                    case "edi":
+                        edi++;
+                        break;
+                    case "esi":
+                        esi++;
+                        break;
+                }
+
+            }
+            else if (start == "dec ")
+            {
+                switch (command)
+                {
+                    case "eax":
+                        eax--;
+                        break;
+                    case "ebx":
+                        ebx--;
+                        break;
+                    case "ecx":
+                        ecx--;
+                        break;
+                    case "edx":
+                        edx--;
+                        break;
+                    case "edi":
+                        edi--;
+                        break;
+                    case "esi":
+                        esi--;
+                        break;
+                }
+
             }
             #endregion
             #region add
