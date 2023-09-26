@@ -23,13 +23,13 @@ namespace assemblyVis
         private bool isInputGiven = false;
         string[] labels = new string[100];
         int[] labelLine = new int[100];
-        List<int> stack = new List<int>();
-        int test;
+        List<int> stack = new List<int>(300);
 
         public nasmVis()
         {
             InitializeComponent();
             randRegisters();
+            fillStack();
         }
 
         #region Register Type Buttons
@@ -62,20 +62,20 @@ namespace assemblyVis
             edx = num.Next(1, 2147483647);
             esi = num.Next(1, 2147483647);
             edi = num.Next(1, 2147483647);
-            ebp = 0;
+            ebp = 1012;
             esp = 0;
             updateRegisters();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            int lineCount = textBox1.Lines.Length;
-            StringBuilder sb = new StringBuilder();
-            for (int i = 1; i <= lineCount; i++)
-            {
-                sb.AppendLine(i.ToString());
-            }
-            label6.Text = sb.ToString();
+            //int lineCount = textBox1.Lines.Length;
+            //StringBuilder sb = new StringBuilder();
+            //for (int i = 1; i <= lineCount; i++)
+            //{
+            //    sb.AppendLine(i.ToString());
+            //}
+            //textBox1.Text = sb.ToString();
         }
 
         private void nasmVis_Load(object sender, EventArgs e)
@@ -121,30 +121,35 @@ namespace assemblyVis
         public void updateStack()
         {
             Random num = new Random();
-            stackNum = num.Next(250, 1000);
+            stackNum = 250;
             stackNum *= 4;
             stackText.Clear();
             for (int k = 0; k < 3; k++)
             {
                 stackText.Text += "     +------------------+ - " + stackNum + "\n";
-                stackText.Text += "     |                  |\n";
+                stackText.Text += "     |     00000000     |\n";
                 stackNum += 4;
             }
             for (int k = stack.Count() - 1; k >= 0; k--)
             {
                 stackText.Text += "     +------------------+ - " + stackNum + "\n";
-                stackText.Text += "     | " + stack[k].ToString("X8") + " |\n";
+                stackText.Text += "     |     " + stack[k].ToString("X8") + "     |\n";
                 stackNum += 4;
             }
             for (int k = 0; k < 3; k++)
             {
                 stackText.Text += "     +------------------+ - " + stackNum + "\n";
-                stackText.Text += "     |                  |\n";
+                stackText.Text += "     |     00000000     |\n";
                 stackNum += 4;
             }
             stackText.Text += "     +------------------+ - " + stackNum + "\n";
 
             stackText.ScrollToCaret();
+        }
+
+        public void fillStack()
+        {
+            
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -156,7 +161,7 @@ namespace assemblyVis
         private void readLabels()
         {
             int i = 0;
-            foreach (string line in textBox1.Lines)
+            foreach (string line in codeTxt.Lines)
             {
                 if (line.EndsWith(":"))
                 {
@@ -179,7 +184,7 @@ namespace assemblyVis
         {
             button2_Click(sender, e);
             readLabels();
-            string[] lines = textBox1.Text.Split('\n');
+            string[] lines = codeTxt.Text.Split('\n');
             while (currentLine < lines.Length)
             {
                 runLine(lines[currentLine]);
@@ -194,32 +199,32 @@ namespace assemblyVis
 
         private void button3_Click(object sender, EventArgs e)
         {
-            string[] lines = textBox1.Text.Split('\n');
+            string[] lines = codeTxt.Text.Split('\n');
             if (lines.Length == currentLine)
                 return;
             readLabels();
 
             if (currentLine > 0)
             {
-                int st = textBox1.GetFirstCharIndexFromLine(currentLine - 1);
+                int st = codeTxt.GetFirstCharIndexFromLine(currentLine - 1);
                 int len = lines[currentLine - 1].Length;
-                textBox1.Select(st, len);
-                textBox1.SelectionBackColor = Color.FromArgb(37, 37, 38);
-                textBox1.SelectionColor = Color.White;
+                codeTxt.Select(st, len);
+                codeTxt.SelectionBackColor = Color.FromArgb(37, 37, 38);
+                codeTxt.SelectionColor = Color.White;
 
             }
-            int startIndex = textBox1.GetFirstCharIndexFromLine(currentLine);
+            int startIndex = codeTxt.GetFirstCharIndexFromLine(currentLine);
             int length = lines[currentLine].Length;
-            textBox1.Select(startIndex, length);
-            textBox1.SelectionBackColor = Color.FromArgb(62, 120, 138);
+            codeTxt.Select(startIndex, length);
+            codeTxt.SelectionBackColor = Color.FromArgb(62, 120, 138);
 
-            runLine(textBox1.Lines[currentLine]);
+            runLine(codeTxt.Lines[currentLine]);
             currentLine++;
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            textBox1.Text = "";
+            codeTxt.Text = "";
             currentLine = 0;
         }
 
@@ -227,20 +232,20 @@ namespace assemblyVis
         {
             textBox2.Text = "";
             textBox3.Text = "";
-            string[] lines = textBox1.Text.Split('\n');
+            string[] lines = codeTxt.Text.Split('\n');
 
             for (int i = 0; i < lines.Length; i++)
             {
-                int st = textBox1.GetFirstCharIndexFromLine(i);
+                int st = codeTxt.GetFirstCharIndexFromLine(i);
                 int len = lines[i].Length;
-                textBox1.Select(st, len);
-                textBox1.SelectionBackColor = Color.FromArgb(37, 37, 38);
-                textBox1.SelectionColor = Color.White;
+                codeTxt.Select(st, len);
+                codeTxt.SelectionBackColor = Color.FromArgb(37, 37, 38);
+                codeTxt.SelectionColor = Color.White;
 
             }
             currentLine = 0;
             stack.Clear();
-            updateRegisters();
+            randRegisters();
             updateStack();
         }
 
@@ -264,6 +269,11 @@ namespace assemblyVis
             text = text.TrimStart();
             if (string.IsNullOrEmpty(text))
                 return;
+            if(text == "ret")
+            {
+                textBox2.Text += "Return From Function" + Environment.NewLine;
+                return;
+            }
             string start = text.Substring(0, 4);
             string command = text.Substring(4);
             command = command.Replace("\t", "");
@@ -477,7 +487,7 @@ namespace assemblyVis
                         eax++;
                         break;
                     case "ebx":
-                        ebx++; 
+                        ebx++;
                         break;
                     case "ecx":
                         ecx++;
@@ -1048,11 +1058,11 @@ namespace assemblyVis
                     if (command + ':' == labels[i])
                     {
                         currentLine = labelLine[i] - 1;
-                        int st = textBox1.GetFirstCharIndexFromLine(currentLine);
-                        int len = textBox1.Lines[currentLine].Length;
-                        textBox1.Select(st, len);
-                        textBox1.SelectionBackColor = Color.FromArgb(37, 37, 38);
-                        textBox1.SelectionColor = Color.White;
+                        int st = codeTxt.GetFirstCharIndexFromLine(currentLine);
+                        int len = codeTxt.Lines[currentLine].Length;
+                        codeTxt.Select(st, len);
+                        codeTxt.SelectionBackColor = Color.FromArgb(37, 37, 38);
+                        codeTxt.SelectionColor = Color.White;
                         break;
                     }
                 }
@@ -1430,7 +1440,7 @@ namespace assemblyVis
                 {
                     stack.Add(ebx);
                 }
-                else if(command == "ebp")
+                else if (command == "ebp")
                 {
                     ebp = stackNum;
                     stack.Add(ebp);
@@ -1469,7 +1479,7 @@ namespace assemblyVis
                     edi = stack[stack.Count - 1];
                     stack.RemoveAt(stack.Count - 1);
                 }
-                else if(command == "ebp")
+                else if (command == "ebp")
                 {
                     ebp = stack[stack.Count - 1];
                     stack.RemoveAt(stack.Count - 1);

@@ -38,7 +38,7 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.button5 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.RichTextBox();
+            this.codeTxt = new System.Windows.Forms.RichTextBox();
             this.textUser = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.enterButton = new System.Windows.Forms.Button();
@@ -46,7 +46,7 @@
             this.binaryButton = new System.Windows.Forms.Button();
             this.hexButton = new System.Windows.Forms.Button();
             this.stackText = new System.Windows.Forms.RichTextBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // button4
@@ -91,9 +91,9 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(815, 9);
+            this.label5.Location = new System.Drawing.Point(853, 9);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(249, 30);
+            this.label5.Size = new System.Drawing.Size(157, 20);
             this.label5.TabIndex = 24;
             this.label5.Text = "Stack and Registers ";
             // 
@@ -102,7 +102,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(512, 168);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(112, 30);
+            this.label4.Size = new System.Drawing.Size(67, 20);
             this.label4.TabIndex = 23;
             this.label4.Text = "Console";
             // 
@@ -111,7 +111,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(517, 5);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(107, 30);
+            this.label3.Size = new System.Drawing.Size(63, 20);
             this.label3.TabIndex = 22;
             this.label3.Text = "Preview";
             // 
@@ -119,7 +119,7 @@
             // 
             this.registers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
             this.registers.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.registers.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.registers.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.registers.ForeColor = System.Drawing.SystemColors.Window;
             this.registers.Location = new System.Drawing.Point(746, 323);
             this.registers.Multiline = true;
@@ -171,19 +171,20 @@
             this.textBox2.WordWrap = false;
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
-            // textBox1
+            // codeTxt
             // 
-            this.textBox1.AcceptsTab = true;
-            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Font = new System.Drawing.Font("Century Gothic", 10F);
-            this.textBox1.ForeColor = System.Drawing.SystemColors.Window;
-            this.textBox1.Location = new System.Drawing.Point(28, 121);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(344, 402);
-            this.textBox1.TabIndex = 28;
-            this.textBox1.Text = "";
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.codeTxt.AcceptsTab = true;
+            this.codeTxt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.codeTxt.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.codeTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.codeTxt.ForeColor = System.Drawing.SystemColors.Window;
+            this.codeTxt.Location = new System.Drawing.Point(12, 168);
+            this.codeTxt.Name = "codeTxt";
+            this.codeTxt.Size = new System.Drawing.Size(360, 355);
+            this.codeTxt.TabIndex = 28;
+            this.codeTxt.Text = "asm_main:\npush ebp\nmov ebp, esp\n; ********** CODE STARTS HERE **********\n    \n\t\n\n" +
+    "; *********** CODE ENDS HERE ***********\nmov eax, 0\nmov esp, ebp\npop ebp\nret";
+            this.codeTxt.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // textUser
             // 
@@ -201,7 +202,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(512, 334);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(129, 30);
+            this.label2.Size = new System.Drawing.Size(84, 20);
             this.label2.TabIndex = 30;
             this.label2.Text = "User Input";
             // 
@@ -209,7 +210,7 @@
             // 
             this.enterButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.enterButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.enterButton.Font = new System.Drawing.Font("Century Gothic", 8F);
+            this.enterButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.enterButton.ForeColor = System.Drawing.Color.White;
             this.enterButton.Location = new System.Drawing.Point(676, 370);
             this.enterButton.Name = "enterButton";
@@ -263,7 +264,7 @@
             this.stackText.AcceptsTab = true;
             this.stackText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
             this.stackText.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.stackText.Font = new System.Drawing.Font("Century Gothic", 10F);
+            this.stackText.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.stackText.ForeColor = System.Drawing.SystemColors.Window;
             this.stackText.Location = new System.Drawing.Point(746, 38);
             this.stackText.Name = "stackText";
@@ -272,24 +273,27 @@
             this.stackText.TabIndex = 35;
             this.stackText.Text = "";
             // 
-            // label6
+            // richTextBox1
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Century Gothic", 9F);
-            this.label6.Location = new System.Drawing.Point(2, 121);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(20, 21);
-            this.label6.TabIndex = 36;
-            this.label6.Text = "1";
+            this.richTextBox1.AcceptsTab = true;
+            this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.richTextBox1.ForeColor = System.Drawing.SystemColors.Window;
+            this.richTextBox1.Location = new System.Drawing.Point(12, 38);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(360, 124);
+            this.richTextBox1.TabIndex = 36;
+            this.richTextBox1.Text = "segment .data\n\nsegment .bss\n\nsegment .text\n\tglobal  asm_main";
             // 
             // nasmVis
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 30F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1133, 540);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.stackText);
             this.Controls.Add(this.hexButton);
             this.Controls.Add(this.binaryButton);
@@ -297,7 +301,7 @@
             this.Controls.Add(this.enterButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textUser);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.codeTxt);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.forwardBtn);
             this.Controls.Add(this.button2);
@@ -308,7 +312,7 @@
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.textBox2);
-            this.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(120)))), ((int)(((byte)(138)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "nasmVis";
@@ -331,7 +335,7 @@
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.RichTextBox textBox1;
+        private System.Windows.Forms.RichTextBox codeTxt;
         private System.Windows.Forms.TextBox textUser;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button enterButton;
@@ -339,7 +343,7 @@
         private System.Windows.Forms.Button binaryButton;
         private System.Windows.Forms.Button hexButton;
         public System.Windows.Forms.RichTextBox stackText;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 
